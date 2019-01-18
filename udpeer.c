@@ -47,13 +47,13 @@ int main(int argc, char* argv[])
     maxfd = (f2>f1?f2:f1)+1;
     while(1){
         timeout.tv_usec = 0;
-        timeout.tv_sec = 1;
+        timeout.tv_sec = 10;//ten seconds without data trasfering,should close this peer tunnel.
         FD_ZERO(&fds);
         FD_SET(f1, &fds);
         FD_SET(f2, &fds);
 	ret = select(maxfd, &fds, NULL, NULL, &timeout);
 	if(ret < 0){printf("error\n");break;}
-	if(ret == 0){continue;}
+	if(ret == 0){break;}
     	memset(buf,0,BUFF_LEN);
 	if(FD_ISSET(f1, &fds)){
 		ret = recvfrom(f1, buf, BUFF_LEN, 0, (struct sockaddr*)&clent_addr1, &len);  
