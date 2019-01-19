@@ -47,7 +47,7 @@ int main(int argc, char* argv[])
     maxfd = (f2>f1?f2:f1)+1;
     while(1){
         timeout.tv_usec = 0;
-        timeout.tv_sec = 30;//ten seconds without data trasfering,should close this peer tunnel.
+        timeout.tv_sec = 300;//ten seconds without data trasfering,should close this peer tunnel.
         FD_ZERO(&fds);
         FD_SET(f1, &fds);
         FD_SET(f2, &fds);

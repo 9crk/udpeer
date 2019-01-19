@@ -11,16 +11,14 @@ nc -u server.com 8002
 
 # 传输文件
   服务端：
-  udpeer 8000 8001 &
+  ./Step1_server_init.sh 8000 8001
   设备1:
-    echo yyy |nc -u server.com 8000
-    然后Ctrl+C退出
+    ./Step2_sender_init.sh server.com 8000
   设备2:
-    echo yyy|nc -u 10.162.2.100 8001 > file.txt
+    ./Step3_reciver_run.sh server.com 8001 myfile.txt
   设备1:
-    nc -u 10.162.2.100 8000 < file.txt
-  等待若干时常，按Ctrl+C退出
-  即可看到设备2上的file.txt文件
+    ./Step4_sender_send.sh server.com 8000 myfile.txt
+  即可看到设备2上的myfile.txt文件
 
 
 # 设计理念 
