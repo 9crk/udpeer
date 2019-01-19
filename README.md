@@ -9,6 +9,20 @@ nc -u server.com 8001
 设备2:
 nc -u server.com 8002
 
+# 传输文件
+  服务端：
+  udpeer 8000 8001 &
+  设备1:
+    echo yyy |nc -u server.com 8000
+    然后Ctrl+C退出
+  设备2:
+    echo yyy|nc -u 10.162.2.100 8001 > file.txt
+  设备1:
+    nc -u 10.162.2.100 8000 < file.txt
+  等待若干时常，按Ctrl+C退出
+  即可看到设备2上的file.txt文件
+
+
 # 设计理念 
 简单易用
 不会设计加密，加密应该在两个peer端做
