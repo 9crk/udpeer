@@ -47,7 +47,7 @@ int main(int argc, char* argv[])
     maxfd = (f2>f1?f2:f1)+1;
     while(1){
         timeout.tv_usec = 0;
-        timeout.tv_sec = 10;//ten seconds without data trasfering,should close this peer tunnel.
+        timeout.tv_sec = 30;//ten seconds without data trasfering,should close this peer tunnel.
         FD_ZERO(&fds);
         FD_SET(f1, &fds);
         FD_SET(f2, &fds);
@@ -60,14 +60,14 @@ int main(int argc, char* argv[])
 		//printf("recv1-%d:%s\n",ret,buf);
 		if(ret > 0)f1Inited = 1;
 		if(ret > 0 && f2Inited){
-			sendto(f2, buf, BUFF_LEN, 0, (struct sockaddr*)&clent_addr2, len);
+			sendto(f2, buf, ret, 0, (struct sockaddr*)&clent_addr2, len);
 		}
 	}else if(FD_ISSET(f2, &fds)){
     		ret = recvfrom(f2, buf, BUFF_LEN, 0, (struct sockaddr*)&clent_addr2, &len);  
 		//printf("recv2-%d:%s\n",ret,buf);
 		if(ret > 0)f2Inited = 1;
 		if(ret > 0 && f1Inited){
-			sendto(f1, buf, BUFF_LEN, 0, (struct sockaddr*)&clent_addr1, len);
+			sendto(f1, buf, ret, 0, (struct sockaddr*)&clent_addr1, len);
 		}		
 	}
     }
