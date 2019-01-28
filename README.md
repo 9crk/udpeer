@@ -3,34 +3,34 @@ make a tunnel with two port
 
 # 测试&使用
 服务端：
-'''
+```
 udpeer 8000 8001 &
-'''
+```
 设备1:
-'''
+```
 nc -u server.com 8001
-'''
+```
 设备2:
-'''
+```
 nc -u server.com 8002
-'''
+```
 # 传输文件
   服务端：
-  '''
+  ```
   ./Step1_server_init.sh 8000 8001
-  '''
+  ```
   设备1:
-  '''
+  ```
   ./Step2_sender_init.sh server.com 8000
-  '''
+  ```
   设备2:
-  '''
+  ```
   ./Step3_reciver_run.sh server.com 8001 myfile.txt
-  '''
+  ```
   设备1:
-  '''
+  ```
   ./Step4_sender_send.sh server.com 8000 myfile.txt
-  '''
+  ```
   即可看到设备2上的myfile.txt文件
 
 
